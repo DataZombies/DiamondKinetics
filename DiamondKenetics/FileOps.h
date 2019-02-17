@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FileOps : NSObject
 
-+(id)sharedFileOpsManager;
-
 @property (strong, nonatomic) NSDictionary *swingData;
 
 @end

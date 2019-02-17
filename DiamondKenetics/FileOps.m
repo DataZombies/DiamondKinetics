@@ -14,16 +14,6 @@
 
 @implementation FileOps
 
-+(id)sharedFileOpsManager {
-	static FileOps *sharedFileOps;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		sharedFileOps = [self new];
-	});
-
-	return sharedFileOps;
-}
-
 -(id)init {
 	if (self = [super init]) {
 		[self loadSwingData];

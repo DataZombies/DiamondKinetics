@@ -25,7 +25,7 @@
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-	_fileOps = [FileOps sharedFileOpsManager];
+	_fileOps = [FileOps new];
 
 	if (_fileOps.swingData != nil) {
 		_lblDataLoaded.text = @"Data is loaded.";
