@@ -133,7 +133,7 @@
 	return output;
 }
 
--(NSOrderedSet *)searchMultiContinuityWithinRange:(NSArray *)data
+-(NSIndexSet *)searchMultiContinuityWithinRange:(NSArray *)data
 									 IndexBegin:(NSUInteger)indexBegin
 									   IndexEnd:(NSUInteger)indexEnd
 								   ThresholdLow:(float)thresholdLo
@@ -141,9 +141,10 @@
 									  WinLength:(NSUInteger)winLength {
 
 	NSLog(@"searchMultiContinuityWithinRange");
+	NSIndexSet *output;
 	NSIndexSet *candidates =
 	[data indexesOfObjectsAtIndexes:[self makeInspectionWithRange:indexBegin End:indexEnd]
-							options:NSEnumerationReverse
+							options:NSEnumerationConcurrent
 						passingTest:^(id obj, NSUInteger idx, BOOL *stop){
 							bool found = NO;
 
@@ -157,7 +158,7 @@
 						}
 	 ];
 
-	NSOrderedSet *output = [self findOrderedIndicesIn:candidates withWinLength:winLength];
+	output = [self findRangesIn:candidates withWinLength:winLength];
 	NSLog(@"%@", (output.count == 0 ? @"Not Found" : output));
 
 	return output;
@@ -193,6 +194,21 @@
 	}];
 
 	return output;
+}
+
+// Look for indices with a length greater than winLength and return an disordered set.
+-(NSIndexSet *)findRangesIn:(NSIndexSet *)input withWinLength:(NSUInteger)length {
+	NSMutableIndexSet *output = [NSMutableIndexSet new];
+
+	[input enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
+
+		if (range.length >= length) {
+			NSIndexSet *temp = [NSIndexSet indexSetWithIndexesInRange:range];
+			[output addIndexes:temp];
+		}
+	}];
+
+	return [output copy];
 }
 
 //Create a range to be queried using begin and end.
