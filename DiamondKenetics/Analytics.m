@@ -19,28 +19,22 @@
 							   IndexEnd:(NSUInteger)indexEnd
 							  Threshold:(float)threshold
 							  WinLength:(NSUInteger)winLength {
-
 	NSLog(@"searchContinuityAboveValue");
+
 	NSUInteger output;
-	NSIndexSet *candidates =
-	[data indexesOfObjectsAtIndexes:[self makeInspectionWithRange:indexBegin End:indexEnd]
-							options:NSEnumerationConcurrent
-						passingTest:^(id obj, NSUInteger idx, BOOL *stop){
-							bool found = NO;
-
-							if ([obj floatValue] > threshold) {
-								NSLog(@"index:%lu threshold:%f dataValue:%f",
-									  (unsigned long)idx, threshold, [obj floatValue]);
-								found = YES;
-							}
-
-							return found;
-						}
-	 ];
+	NSIndexSet *candidates = [self indexSetSearchWithData:data
+													Range:[self makeInspectionWithRange:indexBegin
+																					End:indexEnd]
+											   Thresholds:@[[NSNumber numberWithFloat:threshold]]
+											   Comparison:@"GreaterThan"
+												   Option:NSEnumerationConcurrent];
 
 	NSOrderedSet *final = [self findOrderedIndicesIn:candidates withWinLength:winLength];
 	output = [[final firstObject] unsignedIntegerValue];
-	NSLog(@"%@", (output == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)output]));
+
+	NSLog(@"candidates: %@", candidates);
+	NSLog(@"final: %@", final);
+	NSLog(@"output: %@", (output == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)output]));
 
 	return output;
 }
@@ -51,28 +45,23 @@
 								ThresholdLow:(float)thresholdLo
 							   ThresholdHigh:(float)thresholdHi
 								   WinLength:(NSUInteger)winLength {
-
 	NSLog(@"backSearchContinuityWithinRange");
+
 	NSUInteger output;
-	NSIndexSet *candidates =
-	[data indexesOfObjectsAtIndexes:[self makeInspectionWithRange:indexBegin End:indexEnd]
-							options:NSEnumerationReverse
-						passingTest:^(id obj, NSUInteger idx, BOOL *stop){
-							bool found = NO;
-
-							if ([obj floatValue] > thresholdLo && [obj floatValue] < thresholdHi) {
-								NSLog(@"index:%lu thresholdLo:%f thresholdHi:%f dataValue:%f",
-									  (unsigned long)idx, thresholdLo, thresholdHi, [obj floatValue]);
-								found = YES;
-							}
-
-							return found;
-						}
-	 ];
+	NSIndexSet *candidates = [self indexSetSearchWithData:data
+													Range:[self makeInspectionWithRange:indexBegin
+																					End:indexEnd]
+											   Thresholds:@[[NSNumber numberWithFloat:thresholdLo],
+															[NSNumber numberWithFloat:thresholdHi]]
+											   Comparison:@"OpenInterval"
+												   Option:NSEnumerationReverse];
 
 	NSOrderedSet *final = [self findOrderedIndicesIn:candidates withWinLength:winLength];
 	output = [[final firstObject] unsignedIntegerValue];
-	NSLog(@"%@", (output == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)output]));
+
+	NSLog(@"candidates: %@", candidates);
+	NSLog(@"final: %@", final);
+	NSLog(@"output: %@", (output == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)output]));
 
 	return output;
 }
@@ -84,51 +73,31 @@
 									   Threshold1:(float)threshold1
 									   Threshold2:(float)threshold2
 										WinLength:(NSUInteger)winLength {
-
 	NSLog(@"searchContinuityAboveValueTwoSignals");
+
 	NSUInteger output;
 
 	//Signal 1
-	NSIndexSet *candidates1 =
-	[data1 indexesOfObjectsAtIndexes:[self makeInspectionWithRange:indexBegin End:indexEnd]
-							 options:NSEnumerationConcurrent
-						 passingTest:^(id obj, NSUInteger idx, BOOL *stop){
-							 bool found = NO;
-
-							 if ([obj floatValue] > threshold1) {
-								 NSLog(@"index:%lu threshold1:%f dataValue:%f",
-									   (unsigned long)idx, threshold1, [obj floatValue]);
-								 found = YES;
-							 }
-
-							 return found;
-						 }
-	 ];
-	NSSet *final1 = [self findIndicesIn:candidates1 withWinLength:winLength];
-
+	NSIndexSet *candidates1 = [self indexSetSearchWithData:data1
+													Range:[self makeInspectionWithRange:indexBegin
+																					End:indexEnd]
+												Thresholds:@[[NSNumber numberWithFloat:threshold1]]
+											   Comparison:@"GreaterThan"
+												   Option:NSEnumerationConcurrent];
 	// Signal 2
-	NSIndexSet *candidates2 =
-	[data2 indexesOfObjectsAtIndexes:[self makeInspectionWithRange:indexBegin End:indexEnd]
-							 options:NSEnumerationConcurrent
-						 passingTest:^(id obj, NSUInteger idx, BOOL *stop){
-							 bool found = NO;
+	NSIndexSet *candidates2 = [self indexSetSearchWithData:data2
+													 Range:[self makeInspectionWithRange:indexBegin
+																					 End:indexEnd]
+												Thresholds:@[[NSNumber numberWithFloat:threshold2]]
+												Comparison:@"GreaterThan"
+													Option:NSEnumerationConcurrent];
 
-							 if ([obj floatValue] > threshold2) {
-								 NSLog(@"index:%lu threshold2:%f dataValue:%f",
-									   (unsigned long)idx, threshold2, [obj floatValue]);
-								 found = YES;
-							 }
+	NSOrderedSet *final = [self findIntersectionOfIndexSet1:candidates1 IndexSet2:candidates2 forWinLength:winLength];
+	output = [[final firstObject] unsignedIntegerValue];
 
-							 return found;
-						 }
-	 ];
-	NSSet *final2 = [self findIndicesIn:candidates2 withWinLength:winLength];
-
-	NSMutableSet *final1MutableCopy = [final1 mutableCopy];
-	[final1MutableCopy intersectSet:final2];
-	NSOrderedSet *finalOrderedSet = [NSOrderedSet orderedSetWithSet:[final1MutableCopy copy]];
-	output = [[finalOrderedSet firstObject] unsignedIntegerValue];
-	NSLog(@"%@", !output ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)output]);
+	NSLog(@"\ncandidates1: %@\ncandidates2: %@", candidates1, candidates2);
+	NSLog(@"final: %@", final);
+	NSLog(@"output: %@", (output == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)output]));
 
 	return output;
 }
@@ -139,56 +108,90 @@
 								   ThresholdLow:(float)thresholdLo
 								  ThresholdHigh:(float)thresholdHi
 									  WinLength:(NSUInteger)winLength {
-
 	NSLog(@"searchMultiContinuityWithinRange");
+
 	NSIndexSet *output;
-	NSIndexSet *candidates =
-	[data indexesOfObjectsAtIndexes:[self makeInspectionWithRange:indexBegin End:indexEnd]
-							options:NSEnumerationConcurrent
-						passingTest:^(id obj, NSUInteger idx, BOOL *stop){
-							bool found = NO;
-
-							if ([obj floatValue] > thresholdLo && [obj floatValue] < thresholdHi) {
-								NSLog(@"index:%lu thresholdLo:%f thresholdHi:%f dataValue:%f",
-									  (unsigned long)idx, thresholdLo, thresholdHi, [obj floatValue]);
-								found = YES;
-							}
-
-							return found;
-						}
-	 ];
+	NSIndexSet *candidates = [self indexSetSearchWithData:data
+													Range:[self makeInspectionWithRange:indexBegin
+																					End:indexEnd]
+											   Thresholds:@[[NSNumber numberWithFloat:thresholdLo],
+															[NSNumber numberWithFloat:thresholdHi]]
+											   Comparison:@"OpenInterval"
+												   Option:NSEnumerationConcurrent];
 
 	output = [self findRangesIn:candidates withWinLength:winLength];
-	NSLog(@"%@", (output.count == 0 ? @"Not Found" : output));
+
+	NSLog(@"output: %@", (output.count == 0 ? @"Not Found" : output));
 
 	return output;
+}
+
+
+#pragma mark - Private Comparison Methods
+
+
+-(BOOL)testGreaterThanWithThreshold:(float)threshold withObject:(id)obj atIndex:(NSUInteger)idx {
+	BOOL found = NO;
+
+	if ([obj floatValue] > threshold) {
+		NSLog(@"Search: index:%lu threshold:%f dataValue:%f",
+			  (unsigned long)idx, threshold, [obj floatValue]);
+		found = YES;
+	}
+
+	return found;
+}
+
+-(BOOL)testOpenIntervalWithLowThreshold:(float)lowThreshold HighThreshold:(float)highThreshold withObject:(id)obj atIndex:(NSUInteger)idx {
+	BOOL found = NO;
+
+	if ([obj floatValue] > lowThreshold && [obj floatValue] < highThreshold) {
+		NSLog(@"Search: index:%lu thresholdLo:%f thresholdHi:%f dataValue:%f",
+			  (unsigned long)idx, lowThreshold, highThreshold, [obj floatValue]);
+		found = YES;
+	}
+
+	return found;
 }
 
 
 #pragma mark - Private Methods
 
 
-// Look for indices with a length greater than winLength and return an ordered set.
--(NSOrderedSet *)findOrderedIndicesIn:(NSIndexSet *)input withWinLength:(NSUInteger)length {
-	NSMutableOrderedSet *output = [NSMutableOrderedSet new];
+-(NSIndexSet *)indexSetSearchWithData:(NSArray *)data
+								Range:(NSIndexSet *)range
+						   Thresholds:(NSArray *)thresholds
+						   Comparison:(NSString *)comparison
+							   Option:(NSEnumerationOptions)option {
 
-	[input enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
+	return [data indexesOfObjectsAtIndexes:range
+							options:option
+						passingTest:^(id obj, NSUInteger idx, BOOL *stop){
+							BOOL found = NO;
 
-		if (range.length >= length) {
-			[output addObject:[NSNumber numberWithUnsignedInteger:range.location]];
-		}
-	}];
+							if ([comparison isEqualToString:@"GreaterThan"] && thresholds.count == 1) {
+								found = [self testGreaterThanWithThreshold:[thresholds[0] floatValue]
+																withObject:obj
+																   atIndex:idx];
+							} else if ([comparison isEqualToString:@"OpenInterval"] && thresholds.count == 2) {
+								found = [self testOpenIntervalWithLowThreshold:[thresholds[0] floatValue]
+																 HighThreshold:[thresholds[1] floatValue]
+																	withObject:obj
+																	   atIndex:idx];
+							}
 
-	return output;
+							return found;
+						}
+	 ];
 }
 
-// Look for indices with a length greater than winLength and return an disordered set.
--(NSSet *)findIndicesIn:(NSIndexSet *)input withWinLength:(NSUInteger)length {
+// Look for indices with a length greater than winLength and return a disordered set.
+-(NSSet *)findIndicesIn:(NSIndexSet *)input withWinLength:(NSUInteger)winLength {
 	NSMutableSet *output = [NSMutableSet new];
 
 	[input enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
 
-		if (range.length >= length) {
+		if (range.length >= winLength) {
 			[output addObject:[NSNumber numberWithUnsignedInteger:range.location]];
 		}
 	}];
@@ -196,13 +199,51 @@
 	return output;
 }
 
-// Look for indices with a length greater than winLength and return an disordered set.
--(NSIndexSet *)findRangesIn:(NSIndexSet *)input withWinLength:(NSUInteger)length {
+// Find the intersection of two sets where the overlap is equal to or greater than winLength.
+// Return the index where the overlap begins.
+-(NSOrderedSet *)findIntersectionOfIndexSet1:(NSIndexSet *)set1 IndexSet2:(NSIndexSet *)set2 forWinLength:(NSUInteger)winLength {
+	NSMutableOrderedSet *output = [NSMutableOrderedSet new];
+
+	[set1 enumerateRangesUsingBlock:^(NSRange range1, BOOL *stop1) {
+		[set2 enumerateRangesUsingBlock:^(NSRange range2, BOOL *stop2) {
+			NSRange intersection = NSIntersectionRange(range1, range2);
+			NSLog(@"\nrange1: %@\nrange2: %@\nIntersection: %@",
+				  NSStringFromRange(range1), NSStringFromRange(range2), NSStringFromRange(intersection));
+
+			if (intersection.length >= winLength) {
+				if (range1.location >= range2.location) {
+					[output addObject:[NSNumber numberWithUnsignedInteger:range1.location]];
+				} else {
+					[output addObject:[NSNumber numberWithUnsignedInteger:range2.location]];
+				}
+			}
+		}];
+	}];
+
+	return output;
+}
+
+// Look for indices with a length greater than winLength and return an ordered set.
+-(NSOrderedSet *)findOrderedIndicesIn:(NSIndexSet *)input withWinLength:(NSUInteger)winLength {
+	NSMutableOrderedSet *output = [NSMutableOrderedSet new];
+
+	[input enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
+
+		if (range.length >= winLength) {
+			[output addObject:[NSNumber numberWithUnsignedInteger:range.location]];
+		}
+	}];
+
+	return output;
+}
+
+// Look for indices in a range with a length greater than winLength and return an indexed set.
+-(NSIndexSet *)findRangesIn:(NSIndexSet *)input withWinLength:(NSUInteger)winLength {
 	NSMutableIndexSet *output = [NSMutableIndexSet new];
 
 	[input enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
 
-		if (range.length >= length) {
+		if (range.length >= winLength) {
 			NSIndexSet *temp = [NSIndexSet indexSetWithIndexesInRange:range];
 			[output addIndexes:temp];
 		}
@@ -211,7 +252,7 @@
 	return [output copy];
 }
 
-//Create a range to be queried using begin and end.
+// Create a range to be queried using begin and end.
 -(NSIndexSet *)makeInspectionWithRange:(NSUInteger)begin End:(NSUInteger)end {
 	NSRange range;
 	NSIndexSet *output;
@@ -223,7 +264,7 @@
 	}
 	output = [NSIndexSet indexSetWithIndexesInRange:range];
 
-	NSLog(@"%@", output);
+	NSLog(@"Range: %@", output);
 
 	return output;
 }
