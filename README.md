@@ -1,2 +1,2 @@
-# DiamondKenetics
-Coding Challenge from DiamondKenetics
+# DiamondKinetics
+Coding Challenge from DiamondKinetics

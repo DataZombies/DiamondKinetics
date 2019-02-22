@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9AR-vh-zFs">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Code Challenge-->
+        <scene sceneID="IVo-XN-QIf">
+            <objects>
+                <viewController title="Code Challenge" id="cUT-Br-Vl2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HwM-ze-6Kf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-6R-SEH">
+                                <rect key="frame" x="0.0" y="72" width="375" height="201"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDv-dg-Jr8">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfW-ap-u9n">
+                                        <rect key="frame" x="90" y="28.5" width="195" height="30"/>
+                                        <state key="normal" title="searchContinuityAboveValue"/>
+                                        <connections>
+                                            <action selector="q1TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="eTf-Lw-eTu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NB6-eN-NwM">
+                                        <rect key="frame" x="68.5" y="66.5" width="238" height="30"/>
+                                        <state key="normal" title="backSearchContinuityWithinRange"/>
+                                        <connections>
+                                            <action selector="q2TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="5Kx-yL-j9K"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VX5-JF-AcC">
+                                        <rect key="frame" x="52" y="104.5" width="271" height="30"/>
+                                        <state key="normal" title="searchContinuityAboveValueTwoSignals"/>
+                                        <connections>
+                                            <action selector="q3TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="0JY-jh-25N"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-4R-CHG">
+                                        <rect key="frame" x="69" y="142.5" width="237" height="30"/>
+                                        <state key="normal" title="searchMultiContinuityWithinRange"/>
+                                        <connections>
+                                            <action selector="q4TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="IFl-nX-qof"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzH-cf-ayE">
+                                        <rect key="frame" x="0.0" y="180.5" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="qzH-cf-ayE" firstAttribute="leading" secondItem="KJa-6R-SEH" secondAttribute="leading" id="2aP-kP-R3E"/>
+                                    <constraint firstAttribute="trailing" secondItem="YDv-dg-Jr8" secondAttribute="trailing" id="7RH-tt-LcY"/>
+                                    <constraint firstAttribute="trailing" secondItem="qzH-cf-ayE" secondAttribute="trailing" id="Gyd-Fp-ULB"/>
+                                    <constraint firstItem="YDv-dg-Jr8" firstAttribute="leading" secondItem="KJa-6R-SEH" secondAttribute="leading" id="bqW-dx-51A"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KJa-6R-SEH" firstAttribute="leading" secondItem="gU4-6q-snC" secondAttribute="leading" id="3e5-5L-6dD"/>
+                            <constraint firstItem="KJa-6R-SEH" firstAttribute="top" secondItem="gU4-6q-snC" secondAttribute="top" constant="8" id="KdY-nM-KT7"/>
+                            <constraint firstItem="gU4-6q-snC" firstAttribute="trailing" secondItem="KJa-6R-SEH" secondAttribute="trailing" id="bkU-j1-qlB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gU4-6q-snC"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Diamond Kinetics" id="YPj-PE-O37"/>
+                    <connections>
+                        <outlet property="lblDataLoaded" destination="YDv-dg-Jr8" id="l3E-ka-HTc"/>
+                        <outlet property="lblOutput" destination="qzH-cf-ayE" id="hP6-1X-ubT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cYJ-Or-s7n" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2148" y="-564.46776611694156"/>
+        </scene>
+        <!--Diamond Kinetics-->
+        <scene sceneID="PJ1-cL-emg">
+            <objects>
+                <navigationController title="Diamond Kinetics" automaticallyAdjustsScrollViewInsets="NO" id="9AR-vh-zFs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eEA-he-lf1">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cUT-Br-Vl2" kind="relationship" relationship="rootViewController" id="oYy-Pb-0Lv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ngk-5E-VAu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1208.8" y="-564.46776611694156"/>
+        </scene>
+    </scenes>
+</document>

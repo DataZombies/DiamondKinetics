@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  DiamondKenetics
+//  DiamondKinetics
 //
-//  Created by Daniel J. Pinter on 2019-02-15.
+//  Created by Daniel J. Pinter on 2019-02-22.
 //  Copyright © 2019 DataZombies. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
 
 @end
 
