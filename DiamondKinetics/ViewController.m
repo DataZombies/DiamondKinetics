@@ -39,12 +39,11 @@
 
 -(IBAction)q1TouchUp:(id)sender {
 	Analytics *analytics = [Analytics new];
-
 	NSUInteger x = [analytics searchContinuityAboveValue:_fileOps.swingData[@"aX"]
-											  IndexBegin:0
-												IndexEnd:_max
-											   Threshold:0.818359f
-											   WinLength:5];
+											  indexBegin:0
+												indexEnd:_max
+											   threshold:0.818359f
+											   winLength:5];
 	_lblOutput.text = (x == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)x]);
 }
 
@@ -52,11 +51,11 @@
 	Analytics *analytics = [Analytics new];
 
 	NSUInteger x = [analytics backSearchContinuityWithinRange:_fileOps.swingData[@"aX"]
-												   IndexBegin:_max
-													 IndexEnd:_max - 50
-												 ThresholdLow:0.12207
-												ThresholdHigh:0.169922
-													WinLength:3];
+												   indexBegin:_max
+													 indexEnd:_max - 50
+												  thresholdLo:0.12207
+												  thresholdHi:0.169922
+													winLength:3];
 	_lblOutput.text = (x == NSNotFound ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)x]);
 }
 
@@ -64,12 +63,12 @@
 	Analytics *analytics = [Analytics new];
 
 	NSUInteger x = [analytics searchContinuityAboveValueTwoSignals:_fileOps.swingData[@"aY"]
-															 Data2:_fileOps.swingData[@"wY"]
-														IndexBegin:0
-														  IndexEnd:_max
-														Threshold1:5
-														Threshold2:10
-														 WinLength:5];
+															 data2:_fileOps.swingData[@"wY"]
+														indexBegin:0
+														  indexEnd:_max
+														threshold1:5
+														threshold2:10
+														 winLength:5];
 	_lblOutput.text = (!x ? @"Not Found" : [NSString stringWithFormat:@"%lu", (unsigned long)x]);
 }
 
@@ -77,13 +76,14 @@
 	Analytics *analytics = [Analytics new];
 
 	NSOrderedSet *x = [analytics searchMultiContinuityWithinRange:_fileOps.swingData[@"aY"]
-													   IndexBegin:0
-														 IndexEnd:500
-													 ThresholdLow:0.3
-													ThresholdHigh:0.5
-														WinLength:5];
+													   indexBegin:0
+														 indexEnd:500
+													  thresholdLo:0.3
+													  thresholdHi:0.5
+														winLength:5];
 
 	_lblOutput.text = [NSString stringWithFormat:@"%@", (x.count == 0 ? @"Not Found" : x)];
 }
 
 @end
+

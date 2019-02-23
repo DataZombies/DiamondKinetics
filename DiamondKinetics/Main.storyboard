@@ -19,44 +19,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-6R-SEH">
-                                <rect key="frame" x="0.0" y="72" width="375" height="201"/>
+                                <rect key="frame" x="8" y="72" width="359" height="201"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDv-dg-Jr8">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfW-ap-u9n">
-                                        <rect key="frame" x="90" y="28.5" width="195" height="30"/>
+                                        <rect key="frame" x="82" y="28.5" width="195" height="30"/>
                                         <state key="normal" title="searchContinuityAboveValue"/>
                                         <connections>
                                             <action selector="q1TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="eTf-Lw-eTu"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NB6-eN-NwM">
-                                        <rect key="frame" x="68.5" y="66.5" width="238" height="30"/>
+                                        <rect key="frame" x="60.5" y="66.5" width="238" height="30"/>
                                         <state key="normal" title="backSearchContinuityWithinRange"/>
                                         <connections>
                                             <action selector="q2TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="5Kx-yL-j9K"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VX5-JF-AcC">
-                                        <rect key="frame" x="52" y="104.5" width="271" height="30"/>
+                                        <rect key="frame" x="44" y="104.5" width="271" height="30"/>
                                         <state key="normal" title="searchContinuityAboveValueTwoSignals"/>
                                         <connections>
                                             <action selector="q3TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="0JY-jh-25N"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-4R-CHG">
-                                        <rect key="frame" x="69" y="142.5" width="237" height="30"/>
+                                        <rect key="frame" x="61" y="142.5" width="237" height="30"/>
                                         <state key="normal" title="searchMultiContinuityWithinRange"/>
                                         <connections>
                                             <action selector="q4TouchUp:" destination="cUT-Br-Vl2" eventType="touchUpInside" id="IFl-nX-qof"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzH-cf-ayE">
-                                        <rect key="frame" x="0.0" y="180.5" width="375" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="180.5" width="359" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -72,9 +72,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="KJa-6R-SEH" firstAttribute="leading" secondItem="gU4-6q-snC" secondAttribute="leading" id="3e5-5L-6dD"/>
+                            <constraint firstItem="KJa-6R-SEH" firstAttribute="leading" secondItem="gU4-6q-snC" secondAttribute="leading" constant="8" id="3e5-5L-6dD"/>
                             <constraint firstItem="KJa-6R-SEH" firstAttribute="top" secondItem="gU4-6q-snC" secondAttribute="top" constant="8" id="KdY-nM-KT7"/>
-                            <constraint firstItem="gU4-6q-snC" firstAttribute="trailing" secondItem="KJa-6R-SEH" secondAttribute="trailing" id="bkU-j1-qlB"/>
+                            <constraint firstItem="KJa-6R-SEH" firstAttribute="trailing" secondItem="gU4-6q-snC" secondAttribute="trailing" constant="-8" id="bkU-j1-qlB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gU4-6q-snC"/>
                     </view>
