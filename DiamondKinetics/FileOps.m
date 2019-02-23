@@ -1,6 +1,6 @@
 //
 //  FileOps.m
-//  DiamondKenetics
+//  DiamondKinetics
 //
 //  Created by Daniel J. Pinter on 2019-02-15.
 //  Copyright © 2019 DataZombies. All rights reserved.
@@ -18,7 +18,7 @@
 	static FileOps *sharedFileOps;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		sharedFileOps = [[self alloc] init];// [self new];
+		sharedFileOps = [self new];
 	});
 
 	return sharedFileOps;

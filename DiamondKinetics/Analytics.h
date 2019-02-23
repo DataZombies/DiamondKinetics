@@ -1,6 +1,6 @@
 //
 //  Analytics.h
-//  DiamondKenetics
+//  DiamondKinetics
 //
 //  Created by Daniel J. Pinter on 2019-02-15.
 //  Copyright © 2019 DataZombies. All rights reserved.
@@ -24,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 // From ​indexBegin​ to ​indexEnd​ (where indexBegin​ is larger than ​indexEnd​),
 // search data for values that are higher than thresholdLo​ and lower than
 // thresholdHi​. Return the first index where data has values that meet this
-// criteria for at least ​winLength​ samples. Return the index closest to zero.
+// criteria for at least ​winLength​ samples. Return the first *encountered*
+// index.
 -(NSUInteger)backSearchContinuityWithinRange:(NSArray *)data
 								  IndexBegin:(NSUInteger)indexBegin
 									IndexEnd:(NSUInteger)indexEnd

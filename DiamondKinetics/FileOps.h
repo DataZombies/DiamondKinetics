@@ -1,6 +1,6 @@
 //
 //  FileOps.h
-//  DiamondKenetics
+//  DiamondKinetics
 //
 //  Created by Daniel J. Pinter on 2019-02-15.
 //  Copyright © 2019 DataZombies. All rights reserved.
